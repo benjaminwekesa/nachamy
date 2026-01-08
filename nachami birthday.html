@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nacha! 🎉</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #ff6b8b;
+            --secondary: #4ecdc4;
+            --accent: #ffd166;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .hero-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            height: 350px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 8rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .button-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .birthday-btn {
+            padding: 18px 30px;
+            font-size: 1.2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .birthday-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+
+        .birthday-btn:active {
+            transform: translateY(0);
+        }
+
+        .pages-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .page-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            animation: popUp 0.5s ease;
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--dark);
+            transform: rotate(90deg);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .message {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border-left: 5px solid var(--primary);
+        }
+
+        .cake-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin-bottom: 50px;
+        }
+
+        .cake-layer {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .layer-bottom {
+            bottom: 0;
+            background: #e25822;
+        }
+
+        .layer-middle {
+            bottom: 30px;
+            background: #f8c291;
+            width: 90%;
+            left: 5%;
+        }
+
+        .layer-top {
+            bottom: 60px;
+            background: #fad390;
+            width: 80%;
+            left: 10%;
+        }
+
+        .candle {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 40px;
+            background: #ff9ff3;
+            border-radius: 5px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+            background: #ff9f43;
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        .wish-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .wish-form input, .wish-form textarea {
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .wish-form input:focus, .wish-form textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .wish-form button {
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wish-form button:hover {
+            background: var(--secondary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            background: var(--dark);
+            color: white;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .heart {
+            color: var(--primary);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            .birthday-btn { padding: 15px 20px; font-size: 1rem; min-width: 160px; }
+            .hero-image { height: 250px; font-size: 5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Happy Birthday Nacha! 🎂</h1>
+            <p class="tagline">Wishing you a day filled with happiness, joy, and wonderful surprises! May all your dreams come true on this special day and throughout the coming year.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="hero-section">
+                <div class="hero-text">
+                    <h2>Celebrating You Today! 🎉</h2>
+                    <p>Dear Nacha, on your special day, we want to celebrate the amazing person you are. Your kindness, laughter, and positive energy light up every room you enter.</p>
+                    <p>This website is a small token of appreciation for having you in our lives. Click on the buttons below to explore different surprises we've prepared for you!</p>
+                    <p>May this birthday bring you closer to your dreams and fill your life with even more beautiful moments. You deserve all the happiness in the world!</p>
+                </div>
+                <div class="hero-image">
+                    <i class="fas fa-birthday-cake"></i>
+                </div>
+            </div>
+
+            <div class="button-section">
+                <button class="birthday-btn" onclick="openPage('birthdayWishes')">
+                    <i class="fas fa-gift"></i> Birthday Wishes
+                </button>
+                <button class="birthday-btn" onclick="openPage('photoGallery')">
+                    <i class="fas fa-images"></i> Photo Gallery
+                </button>
+                <button class="birthday-btn" onclick="openPage('virtualCake')">
+                    <i class="fas fa-cake-candles"></i> Virtual Cake
+                </button>
+                <button class="birthday-btn" onclick="openPage('personalMessages')">
+                    <i class="fas fa-comment-dots"></i> Personal Messages
+                </button>
+                <button class="birthday-btn" onclick="openPage('leaveAWish')">
+                    <i class="fas fa-star"></i> Leave a Wish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Birthday Wishes Page -->
+    <div id="birthdayWishes" class="pages-container">
+        <div class="page-content">
+            <button class="close-btn" onclick="closePage('birthdayWishes')">&times;</button>
+            <h2>Birthday Wishes for Nacha 🎁</h2>
+            <div class="message">
+                <h3>🥳 Happy Birthday, Nacha!</h3>
+                <p>May your special day be as bright as your smile and as wonderful as you are. Wishing you endless joy, laughter, and beautiful moments today and always.</p>
+            </div>
+            <div class="message">
+                <h3>🌟 To an Amazing Friend</h3>
+                <p>Nacha, you bring so much light into the lives of everyone around you. On your birthday, I hope you receive all the love and happiness you give to others multiplied by a hundred!</p>
+            </div>
+            <div class="message">
+                <h3>🎈 Another Year, Another Adventure</h3>
+                <p>As you celebrate another trip around the sun, may you be blessed with health, success, and all the things that make you smile. Here's to creating more wonderful memories together!</p>
+            </div>
+            <div class="message">
+                <h3>💖 From All of Us</h3>
+                <p>We're so lucky to have you in our lives. May this birthday mark the beginning of your most incredible year yet. Cheers to you, Nacha!</p>
+            </div>
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="cake-layer layer-bottom"></div>
+                    <div class="cake-layer layer-middle"></div>
+                    <div class="cake-layer layer-top"></div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+                <p>Make a wish and blow out the virtual candle!</p>
+                <button class="birthday-btn" onclick="blowCandle()" style="margin-top: 15px;">
+                    <i class="fas fa-wind"></i> Blow Out Candle
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Gallery Page -->
+    <div id="photoGallery" class="pages-container">
+        <div class="page-content">
+            <button class="close-btn" onclick="closePage('photoGallery')">&times;</button>
+            <h2>Nacha's Birthday Gallery 📸</h2>
+            <p>Here are some virtual memories celebrating you! (In a real website, these would be your actual photos)</p>
+            <div class="gallery">
+                <div class="gallery-item"><i class="fas fa-crown"></i></div>
+                <div class="gallery-item"><i class="fas fa-heart"></i></div>
+                <div class="gallery-item"><i class="fas fa-champagne-glasses"></i></div>
+                <div class="gallery-item"><i class="fas fa-gift"></i></div>
+                <div class="gallery-item"><i class="fas fa-music"></i></div>
+                <div class="gallery-item"><i class="fasfa-camera"></i></div>
+                <div class="gallery-item"><i class="fas fa-baloons"></i></div>
+                <div class="gallery-item"><i class="fas fa-party-horn"></i></div>
+            </div>
+            <p style="margin-top: 20px;">Each of these icons represents a wonderful memory or quality about you. The crown for your amazing personality, the heart for your kindness, the music for your joyful spirit, and so much more!</p>
+        </div>
+    </div>
+
+    <!-- Virtual Cake Page -->
+    <div id="virtualCake" class="pages-container">
+        <div class="page-content">
+            <button class="close-btn" onclick="closePage('virtualCake')">&times;</button>
+            <h2>Virtual Birthday Cake 🎂</h2>
+            <p>Since we can't share a physical cake today, here's a special virtual one just for you!</p>
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="cake-layer layer-bottom"></div>
+                    <div class="cake-layer layer-middle"></div>
+                    <div class="cake-layer layer-top"></div>
+                    <div class="candle">
+                        <div class="flame" id="mainFlame"></div>
+                    </div>
+                </div>
+                <p>Click the buttons to interact with your virtual cake!</p>
+                <div class="button-section" style="margin-top: 20px;">
+                    <button class="birthday-btn" onclick="lightCandle()">
+                        <i class="fas fa-fire"></i> Light Candle
+                    </button>
+                    <button class="birthday-btn" onclick="blowCandle()">
+                        <i class="fas fa-wind"></i> Blow Out Candle
+                    </button>
+                    <button class="birthday-btn" onclick="changeCakeColor()">
+                        <i class="fas fa-palette"></i> Change Cake
+                    </button>
+                </div>
+                <p id="cakeMessage" style="margin-top: 20px; font-weight: bold; color: var(--primary);"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personal Messages Page -->
+    <div id="personalMessages" class="pages-container">
+        <div class="page-content">
+            <button class="close-btn" onclick="closePage('personalMessages')">&times;</button>
+            <h2>Personal Messages for Nacha 💌</h2>
+            <div class="message">
+                <h3>From Your Best Friend</h3>
+                <p>Nacha, I'm so grateful to have you in my life. You're not just a friend, you're family. Wishing you the happiest birthday ever! Let's make this year unforgettable!</p>
+            </div>
+            <div class="message">
+                <h3>From Your Family</h3>
+                <p>To our dearest Nacha, watching you grow into the amazing person you are today has been our greatest joy. We're so proud of you and love you more than words can express. Happy Birthday!</p>
+            </div>
+            <div class="message">
+                <h3>From Your Work Colleagues</h3>
+                <p>Nacha, your positivity and dedication inspire us all. The office isn't the same without your bright smile. Have a fantastic birthday celebration!</p>
+            </div>
+            <div class="message">
+                <h3>From Your Childhood Friend</h3>
+                <p>Remember all those birthdays we celebrated together growing up? Each one was special because we were together. Even though we're apart today, I'm thinking of you and wishing you all the happiness in the world!</p>
+            </div>
+            <div class="message">
+                <h3>From Someone Who Admires You</h3>
+                <p>You may not know this, but your kindness when we first met changed my perspective on life. Thank you for being you, and may your birthday be as wonderful as the impact you've had on others.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave a Wish Page -->
+    <div id="leaveAWish" class="pages-container">
+        <div class="page-content">
+            <button class="close-btn" onclick="closePage('leaveAWish')">&times;</button>
+            <h2>Leave a Birthday Wish for Nacha 🌠</h2>
+            <p>Add your personal birthday message for Nacha. These wishes will be saved and shared with her!</p>
+            <div class="wish-form">
+                <input type="text" id="wisherName" placeholder="Your Name">
+                <textarea id="birthdayWish" rows="5" placeholder="Your birthday message for Nacha..."></textarea>
+                <button onclick="submitWish()">Submit Your Wish</button>
+            </div>
+            <div id="wishList" style="margin-top: 30px;">
+                <h3>Recent Wishes:</h3>
+                <div class="message">
+                    <p><strong>Alex:</strong> Happy Birthday Nacha! Hope you have an amazing day filled with love and laughter!</p>
+                </div>
+                <div class="message">
+                    <p><strong>Sam:</strong> To the most wonderful person I know, may all your birthday wishes come true!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Made with <span class="heart">❤️</span> for Nacha's Special Day</p>
+            <p>© 2023 Birthday Celebration | Wishing you endless joy and happiness</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">This website was created as a birthday surprise. Refresh the page for new animations!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to open a page
+        function openPage(pageId) {
+            document.getElementById(pageId).style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        // Function to close a page
+        function closePage(pageId) {
+            document.getElementById(pageId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Function to blow out the candle
+        function blowCandle() {
+            const flames = document.querySelectorAll('.flame');
+            const cakeMessage = document.getElementById('cakeMessage');
+            
+            flames.forEach(flame => {
+                flame.style.display = 'none';
+            });
+            
+            if (cakeMessage) {
+                cakeMessage.textContent = "🎉 Your wish has been sent to the universe! It will come true! 🎉";
+                cakeMessage.style.color = "var(--primary)";
+            }
+            
+            // Play a blow sound (in a real implementation)
+            // new Audio('blow-sound.mp3').play();
+            
+            // Show celebration message
+            setTimeout(() => {
+                alert("🎂 Your wish has been made! May it come true this year!");
+            }, 300);
+        }
+
+        // Function to light the candle
+        function lightCandle() {
+            const flames = document.querySelectorAll('.flame');
+            const cakeMessage = document.getElementById('cakeMessage');
+            
+            flames.forEach(flame => {
+                flame.style.display = 'block';
+            });
+            
+            if (cakeMessage) {
+                cakeMessage.textContent = "✨ The candle is lit! Make a wish! ✨";
+                cakeMessage.style.color = "var(--accent)";
+            }
+        }
+
+        // Function to change cake color
+        function changeCakeColor() {
+            const layers = document.querySelectorAll('.cake-layer');
+            const colors = ['#e25822', '#f8c291', '#fad390']; // Original
+            const newColors = ['#ff9ff3', '#f368e0', '#ff6b8b']; // Pink
+            const anotherColors = ['#48dbfb', '#0abde3', '#54a0ff']; // Blue
+            
+            // Randomly select a color set
+            const colorSets = [colors, newColors, anotherColors];
+            const selectedSet = colorSets[Math.floor(Math.random() * colorSets.length)];
+            
+            layers.forEach((layer, index) => {
+                layer.style.backgroundColor = selectedSet[index];
+            });
+            
+            const cakeMessage = document.getElementById('cakeMessage');
+            if (cakeMessage) {
+                cakeMessage.textContent = "🎨 Your cake got a colorful makeover!";
+                cakeMessage.style.color = selectedSet[0];
+            }
+        }
+
+        // Function to submit a wish
+        function submitWish() {
+            const name = document.getElementById('wisherName').value;
+            const wish = document.getElementById('birthdayWish').value;
+            
+            if (!name || !wish) {
+                alert("Please enter both your name and a wish for Nacha!");
+                return;
+            }
+            
+            const wishList = document.getElementById('wishList');
+            const newWish = document.createElement('div');
+            newWish.className = 'message';
+            newWish.innerHTML = `<p><strong>${name}:</strong> ${wish}</p>`;
+            
+            // Add to the top of the list
+            wishList.appendChild(newWish);
+            
+            // Clear the form
+            document.getElementById('wisherName').value = '';
+            document.getElementById('birthdayWish').value = '';
+            
+            // Show success message
+            alert(`Thank you, ${name}! Your birthday wish for Nacha has been added!`);
+        }
+
+        // Close page when clicking outside content
+        window.onclick = function(event) {
+            const pages = document.querySelectorAll('.pages-container');
+            pages.forEach(page => {
+                if (event.target === page) {
+                    closePage(page.id);
+                }
+            });
+        }
+
+        // Add some random confetti on page load
+        window.onload = function() {
+            console.log("🎂 Happy Birthday Nacha! 🎉");
+            
+            // Light the candles by default
+            setTimeout(lightCandle, 500);
+            
+            // Show a birthday alert after a moment
+            setTimeout(() => {
+                console.log("This website is a birthday surprise for Nacha!");
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
